@@ -15,6 +15,6 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 	/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm
 	echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
 else
-	sleep 60
+	sleep 5
 fi
 done
