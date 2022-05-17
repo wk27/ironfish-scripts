@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 # /etc/crontab:
 # @reboot root bash /root/deposit.sh >> /var/log/ironfish_deposit.log
 #
@@ -14,7 +14,7 @@ fi
 
 if [[ `pgrep -f ${filename}` != "$$" ]]; then
         echo "Another instance of the script already exist! Exiting"
-	if [ -s "/var/run/${filename}.pid" ]; then echo "You can try to kill $(cat /var/run/${filename}.pid) process"; fi
+	if [ -s "/var/run/${filename}.pid" ]; then echo -e "You can try to \033[0;31m kill -9 $(cat /var/run/${filename}.pid) \033[0m for killing the current process and then run a new one"; fi
         exit 1
 fi
 
