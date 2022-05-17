@@ -13,7 +13,7 @@ if [ ${filename} != "deposit.sh" ]; then
 fi
 
 if [[ `pgrep -f ${filename}` != "$$" ]]; then
-        echo "Another instance of shell already exist! Exiting"
+        echo "Another instance of the script already exist! Exiting"
 	if [ -s "/var/run/${filename}.pid" ]; then echo "You can try to kill $(cat /var/run/${filename}.pid) process"; fi
         exit 1
 fi
