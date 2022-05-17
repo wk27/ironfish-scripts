@@ -34,12 +34,12 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm | tee /tmp/deposit-last.log
 			echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
 			if [ ! -z "$(egrep -i "Insufficient" /tmp/deposit-last.log)" ]; then
-				sleep 120
+				sleep 360
 				break
 			fi
 		done
 	fi
 else
-	sleep 5
+	sleep 10
 fi
 done
