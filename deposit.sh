@@ -3,7 +3,7 @@
 # @reboot root bash /root/deposit.sh >> /var/log/ironfish_deposit.log
 #
 # background start:
-# nohup bash /root/deposit.sh >> /var/log/ironfish_deposit.log &
+# bash /root/deposit.sh >> /var/log/ironfish_deposit.log &
 #
 filename="$(basename $0)"
 
