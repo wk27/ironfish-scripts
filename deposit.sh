@@ -1,5 +1,4 @@
-#!/bin/bash
-#
+#!/bin/bash 
 # /etc/crontab:
 # @reboot root bash /root/deposit.sh >> /var/log/ironfish_deposit.log
 #
