@@ -31,9 +31,9 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 	if [ ! -z "${REPEAT}" ]; then
 		for i in `seq ${REPEAT}`; do
 			echo -e '\033[1;32m'"Transaction:"'\033[0m'
-			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm | tee /var/log/deposit-last.log
+			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm | tee /tmp/deposit-last.log
 			echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
-			if [ ! -z "$(egrep "Insufficient funds" /var/log/deposit-last.log)" ]; then
+			if [ ! -z "$(egrep "Insufficient funds" /tmp/deposit-last.log)" ]; then
 				break
 			fi
 			sleep 5
