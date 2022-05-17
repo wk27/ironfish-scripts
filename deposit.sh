@@ -27,7 +27,7 @@ while true; do
 BALANCE=$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance $IRONFISH_WALLET | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//')
 echo -e $(date): '\033[1;32m'"Available balance is ${BALANCE}"'\033[0m'
 if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
-	REPEAT=$(echo ${BALANCE}/0.10000001/2 | bc -l | cut -d '.' -f1)
+	REPEAT=$(echo ${BALANCE}/0.10000001 | bc -l | cut -d '.' -f1)
 	if [ ! -z "${REPEAT}" ]; then
 		for i in `seq ${REPEAT}`; do
 			echo -e '\033[1;32m'"Transaction:"'\033[0m'
