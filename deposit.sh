@@ -33,7 +33,7 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm 2>&1 | tee /tmp/deposit-last.log
 			echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
 			if [ ! -z "$(egrep -i "Insufficient" /tmp/deposit-last.log)" ]; then
-				sleep 360
+				sleep 300
 				break
 			fi
 			if [ ! -z "$(egrep -i "An error occurred while sending the transaction" /tmp/deposit-last.log)" ]; then
