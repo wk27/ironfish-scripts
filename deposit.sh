@@ -26,11 +26,16 @@ echo -e '\033[1;32m'" Your wallet name is ${IRONFISH_WALLET} \n Your node name i
 
 while true; do
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//')"
+echo ${BALANCE} > /tmp/.shadow_balance
 echo -e $(date): '\033[1;32m'"Available balance is ${BALANCE}"'\033[0m'
 if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 	REPEAT=$(echo ${BALANCE}/0.10000001 | bc -l | cut -d '.' -f1)
 	if [ ! -z "${REPEAT}" ]; then
 		for i in `seq ${REPEAT}`; do
+			if [ "$(($i % 10))" == 0 ]; then
+				echo $(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//') > /tmp/.shadow_balance 2>&1 &
+			fi
+			echo -e '\033[1;32m'$(date). Possible balance amount is about $(cat /tmp/.shadow_balance)'\033[0m'
 			echo -e '\033[1;32m'"Transaction:"'\033[0m'
 			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm 2>&1 | tee /tmp/deposit-last.log
 			echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
