@@ -25,7 +25,7 @@ echo $$ > /var/run/${filename}.pid
 
 dpkg -s bc > /dev/null 2>&1; if [ "$(echo $?)" != "0" ]; then apt-get -y install bc > /dev/null 2>&1; echo "Note: bc package has been installed"; fi
 
-echo Your wallet name is ${IRONFISH_WALLET} \n Your node name is ${IRONFISH_NODENAME} \n Check these variables before running ${filename} \n"
+echo "Your wallet name is ${IRONFISH_WALLET} \n Your node name is ${IRONFISH_NODENAME} \n Check these variables before running ${filename} \n"
 
 while true; do
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//')"
@@ -37,6 +37,7 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 		for i in `seq ${REPEAT}`; do
 			if [ "$(($i % 10))" == 0 ] || [ "$i" != "${REPEAT}" ]; then
 				echo $(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//') > /tmp/.shadow_balance 2>&1 &
+				echo -e $(date): '\033[1;32m'Possible balance amount is about $(cat /tmp/.shadow_balance)'\033[0m'
 			fi
 			echo -e '\033[1;32m'"Transaction:"'\033[0m'
 			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm 2>&1 | tee /tmp/deposit-last.log
