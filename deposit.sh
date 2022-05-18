@@ -49,6 +49,7 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 				((INSUFFICIENT_COUNT++))
 					if [ "${INSUFFICIENT_COUNT}" == "10" ] && [ -z "$(ps aux | egrep "accounts:rescan" | egrep -v grep | grep ironfish)" ]; then
 						/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:rescan
+						INSUFFICIENT_COUNT=0
 					fi
 				sleep 300
 				break
