@@ -38,7 +38,7 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 			if [ "$(($i % 10))" == 0 ] || [ "$i" != "${REPEAT}" ]; then
 				echo $(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//') > /tmp/.shadow_balance 2>&1 &
 			fi
-			echo -e '\033[1;32m'$(date). Possible balance amount is about $(cat /tmp/.shadow_balance)'\033[0m'
+			echo -e $(date): '\033[1;32m'Possible balance amount is about $(cat /tmp/.shadow_balance)'\033[0m'
 			echo -e '\033[1;32m'"Transaction:"'\033[0m'
 			/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ start deposit --confirm 2>&1 | tee /tmp/deposit-last.log
 			echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
