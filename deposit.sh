@@ -5,6 +5,9 @@
 # background start:
 # bash /root/deposit.sh >> /var/log/ironfish_deposit.log &
 #
+source ~/.bashrc
+source ~/.bash_profile
+
 filename="$(basename $0)"
 
 if [ ${filename} != "deposit.sh" ]; then
