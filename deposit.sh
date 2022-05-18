@@ -24,6 +24,7 @@ fi
 echo $$ > /var/run/${filename}.pid
 
 dpkg -s bc > /dev/null 2>&1; if [ "$(echo $?)" != "0" ]; then apt-get -y install bc > /dev/null 2>&1; echo "Note: bc package has been installed"; fi
+dpkg -s parallel > /dev/null 2>&1; if [ "$(echo $?)" != "0" ]; then apt-get -y install parallel > /dev/null 2>&1; echo "Note: parallel package has been installed"; fi
 
 echo -e "Your wallet name is $IRONFISH_WALLET \nYour node name is ${IRONFISH_NODENAME} \nCheck these variables before running ${filename}"
 
