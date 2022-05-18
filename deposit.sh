@@ -25,7 +25,7 @@ echo $$ > /var/run/${filename}.pid
 
 dpkg -s bc > /dev/null 2>&1; if [ "$(echo $?)" != "0" ]; then apt-get -y install bc > /dev/null 2>&1; echo "Note: bc package has been installed"; fi
 
-echo "Your wallet name is ${IRONFISH_WALLET} \n Your node name is ${IRONFISH_NODENAME} \n Check these variables before running ${filename} \n"
+echo -e " Your wallet name is $IRONFISH_WALLET \n Your node name is ${IRONFISH_NODENAME} \n Check these variables before running ${filename}"
 
 while true; do
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//')"
