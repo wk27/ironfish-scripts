@@ -37,7 +37,7 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 	REPEAT=$(echo ${BALANCE}/0.10000001 | bc -l | cut -d '.' -f1)
 	if [ ! -z "${REPEAT}" ]; then
 		for i in `seq ${REPEAT}`; do
-			if [ "$(($i % 10))" == 0 ] || [ "$i" != "1" ]; then
+			if [ "$(($i % 10))" == 0 ] && [ "$i" != "1" ]; then
 				echo $(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//') > /tmp/.shadow_balance 2>&1 &
 				if (( $(echo $(cat /tmp/.shadow_balance) \>\= 0.10000001 | bc -l) )); then
 					echo -e $(date): '\033[1;32m'Possible balance amount is about $(echo $(cat /tmp/.shadow_balance)-i*0.10000001 | bc)'\033[0m'
