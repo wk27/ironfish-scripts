@@ -48,13 +48,14 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 			echo -e '\033[0;31m'"-------------------------------------------------------------"'\033[0m'
 			if [ ! -z "$(egrep -i "Insufficient" /tmp/deposit-last.log)" ]; then
 				((INSUFFICIENT_COUNT++))
+				echo "Insufficient funds error count is ${INSUFFICIENT_COUNT}"
 					if [ "${INSUFFICIENT_COUNT}" == "5" ] && [ -z "$(ps aux | egrep "accounts:rescan" | egrep -v grep | grep ironfish)" ] && [ "${1}" == "rescan-allowed" ]; then
-						echo -e '\033[0;31m'Too many Insufficient errors. Rescan will start now.'\033[0m'
+						echo -e '\033[0;31m'Too many Insufficient funds errors. Rescan will start now.'\033[0m'
 						/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:rescan
 						INSUFFICIENT_COUNT=0
+						break
 					fi
-				sleep 300
-				break
+				sleep 600
 			fi
 			if [ ! -z "$(egrep -i "An error occurred while sending the transaction" /tmp/deposit-last.log)" ]; then
 				# It means that network is down, script will sleep for 30 minutes until next try
