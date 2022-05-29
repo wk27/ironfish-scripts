@@ -57,7 +57,7 @@ if (( $(echo "${BALANCE} >= 0.10000001" | bc -l) )); then
 					fi
 				sleep 600
 			fi
-			if [ ! -z "$(egrep -i "An error occurred while sending the transaction" /tmp/deposit-last.log)" ]; then
+			if [ ! -z "$(egrep -i "An error occurred while sending the transaction" /tmp/deposit-last.log)" ] || [ ! -z "$(egrep -i "Error: getaddrinfo EAI_AGAIN api.ironfish.network" /tmp/deposit-last.log)" ]; then
 				# It means that network is down, script will sleep for 30 minutes until next try
 				sleep 1800
 				break
