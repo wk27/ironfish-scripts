@@ -32,8 +32,10 @@ while true; do
 INSUFFICIENT_COUNT=0
 if [[ "$(locale | grep LC_MONETARY)" =~ "ru_RU" ]]; then
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed -E 's/(.*),/\1./' | sed 's/\,//')"
+echo "Скрипт работает..."
 	else
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//')"
+echo "Script is working..."
 fi
 echo ${BALANCE} > /tmp/.shadow_balance
 echo -e $(date): '\033[1;32m'"Available balance is ${BALANCE}"'\033[0m'
