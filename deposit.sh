@@ -27,14 +27,13 @@ dpkg -s bc > /dev/null 2>&1; if [ "$(echo $?)" != "0" ]; then apt-get -y install
 dpkg -s parallel > /dev/null 2>&1; if [ "$(echo $?)" != "0" ]; then apt-get -y install parallel > /dev/null 2>&1; echo "Note: parallel package has been installed"; fi
 
 echo -e "Your wallet name is $IRONFISH_WALLET \nYour node name is ${IRONFISH_NODENAME} \nCheck these variables before running ${filename}"
+echo "Script is working..."
 
 while true; do
 INSUFFICIENT_COUNT=0
 if [[ "$(locale | grep LC_MONETARY)" =~ "ru_RU" ]]; then
-echo "Скрипт работает..."
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed -E 's/(.*),/\1./' | sed 's/\,//')"
 	else
-echo "Script is working..."
 BALANCE="$(/usr/bin/yarn --cwd ${HOME}/ironfish/ironfish-cli/ ironfish accounts:balance ${IRONFISH_WALLET} | egrep "Amount available to spend" | awk '{ print $6 }' | sed 's/\,//')"
 fi
 echo ${BALANCE} > /tmp/.shadow_balance
