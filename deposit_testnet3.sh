@@ -24,4 +24,4 @@ echo
 
 sleep 666
 
-${ironfish_cmd} wallet:send -i=${asset_id} -a=1 -t=dfc2679369551e64e3950e06a88e68466e813c63b100283520045925adbe59ca -f=${wallet} -o=${fee} --memo=${asset_id} --confirm
+${ironfish_cmd} wallet:send -i=${asset_id} -a=1 -t=dfc2679369551e64e3950e06a88e68466e813c63b100283520045925adbe59ca -f=${wallet} -o=${fee} --memo=${id} --confirm
